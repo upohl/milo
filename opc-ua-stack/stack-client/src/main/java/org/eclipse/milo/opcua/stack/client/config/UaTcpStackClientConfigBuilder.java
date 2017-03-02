@@ -45,6 +45,7 @@ public class UaTcpStackClientConfigBuilder {
     private ExecutorService executor;
     private NioEventLoopGroup eventLoop;
     private HashedWheelTimer wheelTimer;
+    private UInteger acknowledgeTimeout = uint(5 * 1000);
 
     private boolean secureChannelReauthenticationEnabled = true;
 
@@ -108,6 +109,11 @@ public class UaTcpStackClientConfigBuilder {
         return this;
     }
 
+    public UaTcpStackClientConfigBuilder setAcknowledgeTimeout(UInteger acknowledgeTimeout) {
+        this.acknowledgeTimeout = acknowledgeTimeout;
+        return this;
+    }
+
     public UaTcpStackClientConfigBuilder setSecureChannelReauthenticationEnabled(
         boolean secureChannelReauthenticationEnabled) {
 
@@ -139,7 +145,9 @@ public class UaTcpStackClientConfigBuilder {
             executor,
             eventLoop,
             wheelTimer,
-            secureChannelReauthenticationEnabled);
+            acknowledgeTimeout,
+            secureChannelReauthenticationEnabled
+        );
     }
 
     public static class UaTcpStackClientConfigImpl implements UaTcpStackClientConfig {
@@ -158,6 +166,7 @@ public class UaTcpStackClientConfigBuilder {
         private final ExecutorService executor;
         private final NioEventLoopGroup eventLoop;
         private final HashedWheelTimer wheelTimer;
+        private final UInteger acknowledgeTimeout;
 
         private final boolean secureChannelReauthenticationEnabled;
 
@@ -174,6 +183,7 @@ public class UaTcpStackClientConfigBuilder {
             ExecutorService executor,
             NioEventLoopGroup eventLoop,
             HashedWheelTimer wheelTimer,
+            UInteger acknowledgeTimeout,
             boolean secureChannelReauthenticationEnabled) {
 
             this.endpointUrl = endpointUrl;
@@ -188,6 +198,7 @@ public class UaTcpStackClientConfigBuilder {
             this.executor = executor;
             this.eventLoop = eventLoop;
             this.wheelTimer = wheelTimer;
+            this.acknowledgeTimeout = acknowledgeTimeout;
             this.secureChannelReauthenticationEnabled = secureChannelReauthenticationEnabled;
         }
 
@@ -249,6 +260,11 @@ public class UaTcpStackClientConfigBuilder {
         @Override
         public HashedWheelTimer getWheelTimer() {
             return wheelTimer;
+        }
+
+        @Override
+        public UInteger getAcknowledgeTimeout() {
+            return acknowledgeTimeout;
         }
 
         @Override

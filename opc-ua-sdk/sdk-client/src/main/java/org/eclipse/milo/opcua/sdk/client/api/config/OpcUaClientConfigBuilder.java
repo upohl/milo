@@ -145,6 +145,12 @@ public class OpcUaClientConfigBuilder extends UaTcpStackClientConfigBuilder {
     }
 
     @Override
+    public OpcUaClientConfigBuilder setAcknowledgeTimeout(UInteger acknowledgeTimeout) {
+        super.setAcknowledgeTimeout(acknowledgeTimeout);
+        return this;
+    }
+
+    @Override
     public OpcUaClientConfigBuilder setSecureChannelReauthenticationEnabled(
         boolean secureChannelReauthenticationEnabled) {
 
@@ -168,7 +174,8 @@ public class OpcUaClientConfigBuilder extends UaTcpStackClientConfigBuilder {
             maxResponseMessageSize,
             maxPendingPublishRequests,
             requestTimeout,
-            identityProvider);
+            identityProvider
+        );
     }
 
     public static class OpcUaClientConfigImpl implements OpcUaClientConfig {
@@ -286,6 +293,11 @@ public class OpcUaClientConfigBuilder extends UaTcpStackClientConfigBuilder {
         @Override
         public HashedWheelTimer getWheelTimer() {
             return stackClientConfig.getWheelTimer();
+        }
+
+        @Override
+        public UInteger getAcknowledgeTimeout() {
+            return stackClientConfig.getAcknowledgeTimeout();
         }
 
         @Override

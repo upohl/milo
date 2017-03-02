@@ -41,6 +41,7 @@ public class UaTcpStackClientConfigTest extends SecurityFixture {
             .setEventLoop(Stack.sharedEventLoop())
             .setWheelTimer(Stack.sharedWheelTimer())
             .setSecureChannelReauthenticationEnabled(true)
+            .setAcknowledgeTimeout(uint(12345))
             .build();
 
         UaTcpStackClientConfig copy = UaTcpStackClientConfig.copy(original).build();
@@ -56,6 +57,7 @@ public class UaTcpStackClientConfigTest extends SecurityFixture {
         assertEquals(copy.getExecutor(), original.getExecutor());
         assertEquals(copy.getEventLoop(), original.getEventLoop());
         assertEquals(copy.getWheelTimer(), original.getWheelTimer());
+        assertEquals(copy.getAcknowledgeTimeout(), original.getAcknowledgeTimeout());
         assertEquals(
             copy.isSecureChannelReauthenticationEnabled(),
             original.isSecureChannelReauthenticationEnabled());
@@ -87,6 +89,7 @@ public class UaTcpStackClientConfigTest extends SecurityFixture {
                 .setProductUri("fooProductUri")
                 .setChannelConfig(null)
                 .setChannelLifetime(uint(0))
+                .setAcknowledgeTimeout(uint(12345))
         );
 
         assertEquals(copy.getEndpointUrl(), Optional.of("foo"));
@@ -97,6 +100,7 @@ public class UaTcpStackClientConfigTest extends SecurityFixture {
         assertEquals(copy.getProductUri(), "fooProductUri");
         assertEquals(copy.getChannelConfig(), null);
         assertEquals(copy.getChannelLifetime(), uint(0));
+        assertEquals(copy.getAcknowledgeTimeout(), uint(12345));
     }
 
 }
