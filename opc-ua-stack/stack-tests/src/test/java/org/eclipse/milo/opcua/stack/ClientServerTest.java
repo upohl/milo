@@ -413,6 +413,7 @@ public class ClientServerTest extends SecurityFixture {
             .setEndpoint(endpoint)
             .setKeyPair(clientKeyPair)
             .setCertificate(clientCertificate)
+            .setAcknowledgeTimeout(uint(30000))
             .build();
 
         return new UaTcpStackClient(config);
